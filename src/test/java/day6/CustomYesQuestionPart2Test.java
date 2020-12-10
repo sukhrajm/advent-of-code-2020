@@ -101,7 +101,7 @@ public class CustomYesQuestionPart2Test {
     }
 
 
-   /* @Test
+   @Test
     public void testWithMultipleGroups(){
         String input = "abc\n" +
                 "\n" +
@@ -122,7 +122,7 @@ public class CustomYesQuestionPart2Test {
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
         long result = customYesQuestionPart2.solution(input);
         assertEquals(6, result);
-    }*/
+    }
 
     /*@Test
     public void testWithInputFile() throws IOException {
