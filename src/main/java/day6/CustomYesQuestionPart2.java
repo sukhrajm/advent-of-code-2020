@@ -17,7 +17,16 @@ public class CustomYesQuestionPart2 {
 
         int result = findNumberOfCommonLetters(input);
 
-        return result;
+        String[] groups = input.split("\n\n");
+
+        int total = 0;
+
+        for (String group : groups) {
+            int commonLettersInOneGroup = findNumberOfCommonLetters(group);
+            total = total + commonLettersInOneGroup;
+        }
+
+        return total;
 
     }
 
@@ -64,33 +73,6 @@ public class CustomYesQuestionPart2 {
 
         return numberOfCharachtersOccuringMaxTimes;
 
-
     }
 
-    private int findDistinctChars(String input) {
-
-        ArrayList<Object> collect = input.replace("\n", "").chars().sorted().distinct().collect(
-                ArrayList::new,
-                ArrayList::add,
-                ArrayList::add
-        );
-
-        return collect.size();
-    }
-
-    private boolean checkAllLettersAreRepeated(String input) {
-        char[] chars = input.toCharArray();
-
-        for (int i = 0; i < input.length(); i++) {
-            if (chars[i] != chars[0]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public List<String> findUniqueLetters(String s) {
-        return s.chars().distinct().map(c ->(char)c).mapToObj(c -> String.valueOf(c)).collect(toList());
-    }
 }

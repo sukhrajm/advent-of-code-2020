@@ -52,7 +52,7 @@ public class CustomYesQuestionPart2Test {
 
     @Test
     public void testWithMultipleLinesAndTwoUniqueLetterAlternating() {
-        String input = "tr\nrt\ntr\nrt";
+        String input = "tr\nrt\ntr\nrt\tr\rt";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
         long result = customYesQuestionPart2.solution(input);
@@ -101,8 +101,8 @@ public class CustomYesQuestionPart2Test {
     }
 
 
-    /*@Test
-    public void testWithMultpleGroups(){
+   /* @Test
+    public void testWithMultipleGroups(){
         String input = "abc\n" +
                 "\n" +
                 "a\n" +
