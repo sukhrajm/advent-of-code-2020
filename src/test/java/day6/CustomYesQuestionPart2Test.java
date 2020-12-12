@@ -11,21 +11,11 @@ import static org.junit.Assert.assertEquals;
 public class CustomYesQuestionPart2Test {
 
     @Test
-    public void testWithOneLineAndOneUniqueLetterRepeated() {
-        String input = "abca";
-        CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
-
-        long result = customYesQuestionPart2.solution(input);
-        assertEquals(1, result);
-
-    }
-
-    @Test
     public void testWithOneLineAndOneUniqueLetterNotRepeated() {
         String input = "xyz";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(3, result);
 
     }
@@ -35,7 +25,7 @@ public class CustomYesQuestionPart2Test {
         String input = "ab\nac";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(1, result);
 
     }
@@ -45,17 +35,17 @@ public class CustomYesQuestionPart2Test {
         String input = "ab\nacb";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(2, result);
 
     }
 
     @Test
     public void testWithMultipleLinesAndTwoUniqueLetterAlternating() {
-        String input = "tr\nrt\ntr\nrt\tr\rt";
+        String input = "tr\nrt\ntr\nrt\ntr\nrt";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(2, result);
 
     }
@@ -65,7 +55,7 @@ public class CustomYesQuestionPart2Test {
         String input = "tr\nrt\ntr\nrtb";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(2, result);
 
     }
@@ -75,7 +65,7 @@ public class CustomYesQuestionPart2Test {
         String input = "a\na\na\na";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(1, result);
 
     }
@@ -85,7 +75,17 @@ public class CustomYesQuestionPart2Test {
         String input = "a\nb\nc";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
+        assertEquals(0, result);
+
+    }
+
+    @Test
+    public void testWithMultipleLinesAndOneCommonLetters() {
+        String input = "a\nb\nc\nfa";
+        CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
+
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(0, result);
 
     }
@@ -95,7 +95,7 @@ public class CustomYesQuestionPart2Test {
         String input = "a";
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
 
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(1, result);
 
     }
@@ -120,11 +120,11 @@ public class CustomYesQuestionPart2Test {
                 "b";
 
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
-        long result = customYesQuestionPart2.solution(input);
+        int result = customYesQuestionPart2.solution(input);
         assertEquals(6, result);
     }
 
-    /*@Test
+    @Test
     public void testWithInputFile() throws IOException {
 
         String path = "src/test/resources/day6input.txt";
@@ -132,9 +132,8 @@ public class CustomYesQuestionPart2Test {
 
         String contentOfFile = Files.readString(file.toPath());
 
-
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
-        long result = customYesQuestionPart2.solution(contentOfFile);
+        int result = customYesQuestionPart2.solution(contentOfFile);
         System.out.println("result = " + result);
-    }*/
+    }
 }

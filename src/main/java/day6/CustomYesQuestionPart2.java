@@ -13,9 +13,7 @@ public class CustomYesQuestionPart2 {
     private CustomYesQuestions customYesQuestions = new CustomYesQuestions();
 
 
-    public long solution(String input) {
-
-        int result = findNumberOfCommonLetters(input);
+    public int solution(String input) {
 
         String[] groups = input.split("\n\n");
 
@@ -33,13 +31,10 @@ public class CustomYesQuestionPart2 {
     private int findNumberOfCommonLetters(String input) {
         Map<Character, Integer> map = new HashMap<>();
 
+        String[] lines = input.split("\n");
+        int numberOfNewLines = lines.length;
+
         String input2 = input.replace("\n", "");
-
-        boolean hasNewLines = true;
-
-        if (input2.equals(input)) {
-            hasNewLines = false;
-        }
 
         char[] array = input2.toCharArray();
 
@@ -53,25 +48,16 @@ public class CustomYesQuestionPart2 {
             }
         }
 
-        int max = Collections.max(map.values());
-
-        int numberOfCharachtersOccuringMaxTimes = 0;
+        List<Character> commonChars = new ArrayList<>();
 
         for (Map.Entry<Character, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == max) {
-                numberOfCharachtersOccuringMaxTimes++;
+            if (entry.getValue() == numberOfNewLines) {
+                //the this character appeared on each line
+                commonChars.add(entry.getKey());
             }
         }
 
-
-        if (hasNewLines) {
-            if (numberOfCharachtersOccuringMaxTimes == input2.length()) {
-                //then all the letters occured the same number of times so no common
-                return 0;
-            }
-        }
-
-        return numberOfCharachtersOccuringMaxTimes;
+        return commonChars.size();
 
     }
 
