@@ -134,6 +134,6 @@ public class CustomYesQuestionPart2Test {
 
         CustomYesQuestionPart2 customYesQuestionPart2 = new CustomYesQuestionPart2();
         int result = customYesQuestionPart2.solution(contentOfFile);
-        System.out.println("result = " + result);
+        assertEquals(3193, result);
     }
 }
