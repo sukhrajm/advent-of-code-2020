@@ -11,27 +11,32 @@ public class BagSolution {
 
     BagSolution(String rules) {
 
-        String[] parts = rules.split("contain ");
+        String[] lines = rules.split("\n");
 
-        //remove the 's' to get the singular name
-        String outerBag = parts[0].substring(0, parts[0].length() - 1);
+        for (String line : lines) {
 
-        //parts[1] might have comma separated list of inner bags
-        String innerBag = parts[1].substring(0, parts[1].length() - 1);
+            String[] parts = line.split("contain ");
 
-        String[] innerBagStrings = innerBag.split(",");
-        List<Bag> innerBags = new ArrayList<>();
-        if (innerBagStrings.length > 0) {
+            //remove the 's' to get the singular name
+            String outerBag = parts[0].substring(0, parts[0].length() - 1);
 
-            for (String desc : innerBagStrings) {
-                Bag b = new Bag(desc, null);
-                innerBags.add(b);
+            //parts[1] might have comma separated list of inner bags
+            String innerBag = parts[1].substring(0, parts[1].length() - 1);
+
+            String[] innerBagStrings = innerBag.split(",");
+            List<Bag> innerBags = new ArrayList<>();
+            if (innerBagStrings.length > 0) {
+
+                for (String desc : innerBagStrings) {
+                    Bag b = new Bag(desc, null);
+                    innerBags.add(b);
+                }
+                Bag bag = new Bag(outerBag, innerBags);
+                allBags.add(bag);
+            } else {
+                Bag bag = new Bag(outerBag, createInnerBags(new Bag(innerBag, null)));
+                allBags.add(bag);
             }
-            Bag bag = new Bag(outerBag, innerBags);
-            allBags.add(bag);
-        } else {
-            Bag bag = new Bag(outerBag, createInnerBags(new Bag(innerBag, null)));
-            allBags.add(bag);
         }
 
 

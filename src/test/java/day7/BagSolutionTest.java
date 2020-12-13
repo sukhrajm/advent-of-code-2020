@@ -32,5 +32,19 @@ public class BagSolutionTest {
 
     }
 
+    @Test
+    public void testBagWithMultipleTargetBagDirectly() {
+
+        testInput = "muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.\n" +
+                    "bright white bags contain 1 shiny gold bag.";
+
+
+        BagSolution bagSolution = new BagSolution(testInput);
+        int result = bagSolution.solution("shiny gold bag");
+
+        assertEquals(2, result);
+
+    }
+
 
 }
