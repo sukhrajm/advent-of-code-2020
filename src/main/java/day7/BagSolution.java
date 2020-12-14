@@ -1,13 +1,16 @@
 package day7;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 public class BagSolution {
 
-    List<Bag> allBags = new ArrayList<>();
-
-    int countForRecursion = 0;
+    private Multimap<String, String> allBags = ArrayListMultimap.create();
 
     BagSolution(String rules) {
 
@@ -18,72 +21,68 @@ public class BagSolution {
             String[] parts = line.split("contain ");
 
             //remove the 's' to get the singular name
-            String outerBag = parts[0].substring(0, parts[0].length() - 1);
+            String outerBag = parts[0].substring(0, parts[0].length() - 2);
 
             //parts[1] might have comma separated list of inner bags
-            String innerBag = parts[1].substring(0, parts[1].length() - 1);
+            String[] innerBagStrings = parts[1].split(",");
 
-            String[] innerBagStrings = innerBag.split(",");
-            List<Bag> innerBags = new ArrayList<>();
-            if (innerBagStrings.length > 0) {
-
-                for (String desc : innerBagStrings) {
-                    Bag b = new Bag(desc, null);
-                    innerBags.add(b);
+            for (String s : innerBagStrings) {
+                String innerBagName = null;
+                if (s.equals("no other bags.")) {
+                    innerBagName = null;
                 }
-                Bag bag = new Bag(outerBag, innerBags);
-                allBags.add(bag);
-            } else {
-                Bag bag = new Bag(outerBag, createInnerBags(new Bag(innerBag, null)));
-                allBags.add(bag);
+                else if (s.endsWith("s") || s.endsWith("s.")) {
+                    innerBagName = s.substring(2, s.lastIndexOf("s"));
+                }
+                else if (s.endsWith(".")){
+                    innerBagName = s.substring(2, s.lastIndexOf("."));
+                }
+                else {
+                    innerBagName = s.substring(2);
+                }
+
+                allBags.put(outerBag, innerBagName);
             }
         }
-
-
-
-
-
     }
 
+    int count = 0;
     public int solution(String innerBagDesc) {
 
-        int count = 0;
 
-        for (Bag b : allBags) {
+        List<String> directParents = allBags.entries()
+            .stream()
+            .filter(f -> f.getValue() != null)
+            .filter(f -> f.getValue().equals(innerBagDesc))
+            .map(m -> m.getKey())
+            .collect(toList());
 
-            count = find(b, innerBagDesc);
-        }
+        count = directParents.size();
 
-        return count;
-    }
-
-
-
-    private int find(Bag b, String desc) {
-
-        if (b.inner != null) {
-
-            for (Bag b1 : b.inner) {
-                if (b1.description.contains(desc)) {
-                    countForRecursion++;
-                } else {
-                    find(b1, desc);
-                }
-            }
-        }
-
-        return countForRecursion;
+        return find(directParents);
 
     }
 
-    private List<Bag> createInnerBags(Bag... bags) {
+    private int find(List<String> nodes) {
 
-        List<Bag> result = new ArrayList<>();
+        List<String> parents = null;
+        for (String n : nodes) {
+            parents = allBags.entries()
+                .stream()
+                .filter(f -> f.getValue() != null)
+                .filter(f -> f.getValue().equals(n))
+                .map(m -> m.getKey())
+                .collect(toList());
 
-        for(Bag b : bags) {
-            result.add(b);
+            count = count + parents.size();
+
         }
 
-        return result;
+        if (parents.size() == 0) {
+            return count;
+        } else {
+            return find(parents);
+        }
+
     }
 }
