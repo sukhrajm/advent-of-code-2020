@@ -3,7 +3,6 @@ package day7;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -32,13 +31,13 @@ public class BagSolution {
                     innerBagName = null;
                 }
                 else if (s.endsWith("s") || s.endsWith("s.")) {
-                    innerBagName = s.substring(2, s.lastIndexOf("s"));
+                    innerBagName = s.substring(2, s.lastIndexOf("s")).stripLeading();
                 }
                 else if (s.endsWith(".")){
-                    innerBagName = s.substring(2, s.lastIndexOf("."));
+                    innerBagName = s.substring(2, s.lastIndexOf(".")).stripLeading();
                 }
                 else {
-                    innerBagName = s.substring(2);
+                    innerBagName = s.substring(2).stripLeading();
                 }
 
                 allBags.put(outerBag, innerBagName);

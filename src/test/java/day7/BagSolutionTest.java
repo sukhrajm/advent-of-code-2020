@@ -100,7 +100,7 @@ public class BagSolutionTest {
 
     }
 
-   /* @Test
+    @Test
     public void testFromInputFile() throws IOException {
 
         String path = "src/test/resources/day7input.txt";
@@ -112,6 +112,6 @@ public class BagSolutionTest {
         int result = bagSolution.solution("shiny gold bag");
 
         System.out.println("result = " + result);
-    }*/
+    }
 
 }
