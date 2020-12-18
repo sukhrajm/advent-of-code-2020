@@ -37,7 +37,7 @@ public class BagSolutionTest {
     }
 
     @Test
-    public void testBagWithMultipleTargetBagDirectly() {
+    public void testBagWith2DirectParents() {
 
         testInput = "muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.\n" +
                     "bright white bags contain 1 shiny gold bag.";
@@ -51,7 +51,7 @@ public class BagSolutionTest {
     }
 
     @Test
-    public void testBagWithMultipleTargetBagsOneIsIndirect() {
+    public void testBagWithOneDirectParentOneSuperParent() {
 
         testInput = "dark orange bags contain 3 bright white bags, 4 muted yellow bags.\n" +
             "muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.";
@@ -60,7 +60,7 @@ public class BagSolutionTest {
         BagSolution bagSolution = new BagSolution(testInput);
         int result = bagSolution.solution("shiny gold bag");
 
-        assertEquals(1, result);
+        assertEquals(2, result);
 
     }
 
@@ -69,14 +69,14 @@ public class BagSolutionTest {
 
         testInput = "dark orange bags contain 3 bright white bags, 4 muted yellow bags.\n" +
             "muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.\n" +
-            "bright blue bags contain 2 black bags.\n" +
+            "bright blue bags contain 2 spotty black bags.\n" +
             "spotty black bags contain 1 shiny gold bag.";
 
 
         BagSolution bagSolution = new BagSolution(testInput);
         int result = bagSolution.solution("shiny gold bag");
 
-        assertEquals(2, result);
+        assertEquals(4, result);
 
     }
 

@@ -1,15 +1,13 @@
 package day7;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.MutableGraph;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import java.util.*;
 
 public class BagSolution {
 
-    private Multimap<String, String> allBags = ArrayListMultimap.create();
+    private MutableGraph<String> allBags = GraphBuilder.directed().build();
 
     BagSolution(String rules) {
 
@@ -28,7 +26,7 @@ public class BagSolution {
             for (String s : innerBagStrings) {
                 String innerBagName = null;
                 if (s.equals("no other bags.")) {
-                    innerBagName = null;
+                    innerBagName = "";
                 }
                 else if (s.endsWith("s") || s.endsWith("s.")) {
                     innerBagName = s.substring(2, s.lastIndexOf("s")).stripLeading();
@@ -40,48 +38,37 @@ public class BagSolution {
                     innerBagName = s.substring(2).stripLeading();
                 }
 
-                allBags.put(outerBag, innerBagName);
+                allBags.putEdge(innerBagName, outerBag);
             }
         }
     }
 
-    int count = 0;
     public int solution(String innerBagDesc) {
 
-
-        List<String> directParents = allBags.entries()
-            .stream()
-            .filter(f -> f.getValue() != null)
-            .filter(f -> f.getValue().equals(innerBagDesc))
-            .map(m -> m.getKey())
-            .collect(toList());
-
-        count = directParents.size();
-
-        return find(directParents);
+        int val = find(allBags, innerBagDesc, new HashSet<>()) - 1;
+        return val;
 
     }
 
-    private int find(List<String> nodes) {
+    private int find(MutableGraph<String> bags, String node, Set<String> visitedNodes) {
 
-        List<String> parents = null;
-        for (String n : nodes) {
-            parents = allBags.entries()
-                .stream()
-                .filter(f -> f.getValue() != null)
-                .filter(f -> f.getValue().equals(n))
-                .map(m -> m.getKey())
-                .collect(toList());
-
-            count = count + parents.size();
-
-        }
-
-        if (parents.size() == 0) {
-            return count;
+        //we have already visited this node, so ignore it
+        if (visitedNodes.contains(node)) {
+            //System.out.println("node has not been visited: " + node);
+            return 0;
         } else {
-            return find(parents);
+            //else add it
+           // System.out.println("node has been visited: " + node);
+            visitedNodes.add(node);
         }
 
+        int count = 1;
+
+        for (String parent : bags.successors(node)) {
+            //System.out.println("parent in loop: " + node);
+            count += find(bags, parent, visitedNodes);
+        }
+
+        return count;
     }
 }
