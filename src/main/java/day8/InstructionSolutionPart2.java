@@ -9,13 +9,11 @@ public class InstructionSolutionPart2 {
 
     public int solution(String input) {
 
-        String[] originalLines = input.split("\n");
-
         String[] lines = input.split("\n");
 
         boolean replacement = false;
 
-        boolean isInfiniteRun = isInfiniteRun(originalLines);
+        boolean isInfiniteRun = isInfiniteRun(lines);
 
         int indexOfReplacement = 0;
         String instructionBeforeReplacement = "";
@@ -45,7 +43,6 @@ public class InstructionSolutionPart2 {
                     instructionBeforeReplacement = line;
                     String newLine = line.replace("jmp", "nop");
                     lines[i] = newLine;
-                    replacement = true;
                     indexOfReplacement = i;
                     indexesThatHaveBeenReplaced.add(i);
 
@@ -54,7 +51,6 @@ public class InstructionSolutionPart2 {
                     instructionBeforeReplacement = line;
                     String newLine = line.replace("nop", "jmp");
                     lines[i] = newLine;
-                    replacement = true;
                     indexOfReplacement = i;
                     indexesThatHaveBeenReplaced.add(i);
                 }

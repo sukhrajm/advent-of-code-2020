@@ -38,6 +38,8 @@ public class InstructionSolutionPart2Test {
         InstructionSolutionPart2 instructionSolutionPart2 = new InstructionSolutionPart2();
         int result = instructionSolutionPart2.solution(contentOfFile);
 
+        // 1016
+        assertEquals(1016, result);
         System.out.println("result = " + result);
     }
 }
