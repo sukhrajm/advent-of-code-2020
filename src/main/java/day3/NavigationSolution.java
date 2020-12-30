@@ -2,7 +2,7 @@ package day3;
 
 public class NavigationSolution {
 
-    public int solution(String[] lines, int y, int x) {
+    public int solution(String[] lines, int y, int x, int accross, int down) {
 
         char[][] grid = new char[y][x];
 
@@ -18,8 +18,8 @@ public class NavigationSolution {
             }
         }
 
-        int xSlope = 3;
-        int ySlope = 1;
+        int xSlope = accross;
+        int ySlope = down;
 
         int xIndex = 0;
         int yIndex = 0;
